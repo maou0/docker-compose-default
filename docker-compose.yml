@@ -6,7 +6,7 @@ services:
     container_name: laravel_nginx
     restart: unless-stopped
     ports:
-      - 8080:80
+      - "8080:80"
     volumes:
       - ./:/var/www
       - ./_docker/nginx/conf.d:/etc/nginx/conf.d
@@ -37,8 +37,11 @@ services:
       MYSQL_DATABASE: laravel
       MYSQL_ROOT_PASSWORD: root
     ports:
-        - 8101:3306
-    command: --character-set-server=utf8mb4 --collation-server=utf8_unicode_ci
+      - "3307:3306"
+    command:
+      - '--default-authentication-plugin=mysql_native_password'
+      - '--character-set-server=utf8'
+      - '--collation-server=utf8_unicode_ci'
     volumes:
         - ./tmp/db:/var/lib/mysql
     networks:
